@@ -166,7 +166,27 @@ bookingForm.addEventListener("submit", function(event) {
 });
 
 
-// LOGIN 
+// FIREBASE AUTH & NAVBAR
+
+import { auth } from "./firebase.js";
+import { onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/12.18.0/firebase-auth.js";
+
+// Check user authentication status
+onAuthStateChanged(auth, (user) => {
+  const navLinks = document.getElementById("navLinks");
+  
+  if (user) {
+    // User is logged in - update navbar
+    const userName = user.displayName || user.email.split("@")[0];
+    
+    // Remove login/register links and add dashboard/logout
+    navLinks.innerHTML = `
+      <a href="dashboard.html" class="active">Dashboard</a>
+      <a href="#" class="profile-link" onclick="alert('Profile page coming soon')">Profile</a>
+      <a href="javascript:void(0)" onclick="logoutUser()" style="color: #e74c3c;">Logout</a>
+    `;
+  }
+});
 
 function showLogin() {
   window.location.href = "login.html";
@@ -174,6 +194,29 @@ function showLogin() {
 
 function showRegister() {
   window.location.href = "register.html";
+}
+
+function logoutUser() {
+  signOut(auth)
+    .then(() => {
+      Swal.fire({
+        icon: 'success',
+        title: 'Logged Out!',
+        text: 'You have been logged out successfully.',
+        confirmButtonColor: '#5267e8'
+      }).then(() => {
+        window.location.href = "index.html";
+      });
+    })
+    .catch((error) => {
+      console.error("Logout error:", error);
+      Swal.fire({
+        icon: 'error',
+        title: 'Error',
+        text: 'An error occurred during logout.',
+        confirmButtonColor: '#5267e8'
+      });
+    });
 }
 
 
@@ -194,3 +237,14 @@ function showAllProviders() {
     });
 
 }
+
+// Make functions globally accessible for HTML onclick handlers
+window.scrollToServices = scrollToServices;
+window.searchProviders = searchProviders;
+window.filterService = filterService;
+window.bookProvider = bookProvider;
+window.closeModal = closeModal;
+window.showLogin = showLogin;
+window.showRegister = showRegister;
+window.logoutUser = logoutUser;
+window.showAllProviders = showAllProviders;

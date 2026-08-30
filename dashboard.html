@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>QuickServe | Dashboard</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="dashboard.css">
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+</head>
+
+<body>
+  <!-- NAVBAR -->
+  <header class="navbar">
+    <div class="container nav-wrapper">
+      <a href="index.html" class="logo">
+        <span class="logo-icon">Q</span>
+        Quick<span>Serve</span>
+      </a>
+
+      <nav class="nav-links" id="navLinks">
+        <a href="#" class="active">Dashboard</a>
+        <a href="#services">My Services</a>
+        <a href="#bookings">Bookings</a>
+        <a href="#profile">Profile</a>
+        <a href="javascript:void(0)" onclick="logout()" style="color: #e74c3c;">Logout</a>
+      </nav>
+
+      <div class="nav-buttons">
+        <span id="userEmail" class="user-email"></span>
+        <button class="menu-btn" id="menuBtn">☰</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- MAIN DASHBOARD -->
+  <main class="dashboard-container">
+    <!-- Welcome Section -->
+    <section class="welcome-section">
+      <div class="container">
+        <div class="welcome-card">
+          <div class="welcome-content">
+            <h1>Welcome, <span id="userName">User</span>!</h1>
+            <p>Manage your services and bookings all in one place</p>
+          </div>
+          <div class="quick-actions">
+            <button class="btn-primary" onclick="openAddService()">+ Add New Service</button>
+            <button class="btn-secondary" onclick="viewBookings()">View Bookings</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="stats-section">
+      <div class="container">
+        <div class="stats-grid">
+          <div class="stat-card">
+            <div class="stat-icon">📊</div>
+            <div class="stat-info">
+              <h3 id="totalServices">0</h3>
+              <p>Active Services</p>
+            </div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon">📅</div>
+            <div class="stat-info">
+              <h3 id="totalBookings">0</h3>
+              <p>Total Bookings</p>
+            </div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon">⭐</div>
+            <div class="stat-info">
+              <h3 id="rating">4.8</h3>
+              <p>Average Rating</p>
+            </div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon">💰</div>
+            <div class="stat-info">
+              <h3 id="totalEarnings">$0</h3>
+              <p>Total Earnings</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- My Services Section -->
+    <section class="services-section" id="services">
+      <div class="container">
+        <div class="section-header">
+          <h2>My Services</h2>
+          <button class="btn-primary" onclick="openAddService()">+ Add Service</button>
+        </div>
+
+        <div id="servicesContainer" class="services-grid">
+          <!-- Services will be loaded here -->
+          <div class="empty-state">
+            <div class="empty-icon">📭</div>
+            <h3>No Services Yet</h3>
+            <p>Start by adding your first service to get bookings</p>
+            <button class="btn-primary" onclick="openAddService()">Add Your First Service</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Recent Bookings Section -->
+    <section class="bookings-section" id="bookings">
+      <div class="container">
+        <div class="section-header">
+          <h2>Recent Bookings</h2>
+          <a href="#" class="view-all">View All →</a>
+        </div>
+
+        <div id="bookingsContainer" class="bookings-list">
+          <!-- Bookings will be loaded here -->
+          <div class="empty-state">
+            <div class="empty-icon">📋</div>
+            <h3>No Bookings Yet</h3>
+            <p>Your bookings will appear here</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Add Service Modal -->
+  <div id="serviceModal" class="modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2>Add New Service</h2>
+        <button class="close-btn" onclick="closeServiceModal()">&times;</button>
+      </div>
+      <form id="serviceForm">
+        <div class="form-group">
+          <label for="serviceName">Service Name</label>
+          <input type="text" id="serviceName" required placeholder="e.g., House Cleaning">
+        </div>
+
+        <div class="form-group">
+          <label for="serviceCategory">Category</label>
+          <select id="serviceCategory" required>
+            <option value="">Select Category</option>
+            <option value="cleaning">Cleaning</option>
+            <option value="plumbing">Plumbing</option>
+            <option value="electrical">Electrical</option>
+            <option value="carpentry">Carpentry</option>
+            <option value="gardening">Gardening</option>
+            <option value="painting">Painting</option>
+            <option value="repairs">Repairs</option>
+            <option value="other">Other</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="serviceDescription">Description</label>
+          <textarea id="serviceDescription" required placeholder="Describe your service in detail"></textarea>
+        </div>
+
+        <div class="form-group">
+          <label for="servicePrice">Price (per hour)</label>
+          <input type="number" id="servicePrice" required placeholder="$50" min="0" step="0.01">
+        </div>
+
+        <div class="form-group">
+          <label for="serviceAvailability">Availability</label>
+          <select id="serviceAvailability" required>
+            <option value="weekdays">Weekdays</option>
+            <option value="weekends">Weekends</option>
+            <option value="anytime">Anytime</option>
+          </select>
+        </div>
+
+        <div class="modal-actions">
+          <button type="button" class="btn-secondary" onclick="closeServiceModal()">Cancel</button>
+          <button type="submit" class="btn-primary">Add Service</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Edit Profile Modal -->
+  <div id="profileModal" class="modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2>Edit Profile</h2>
+        <button class="close-btn" onclick="closeProfileModal()">&times;</button>
+      </div>
+      <form id="profileForm">
+        <div class="form-group">
+          <label for="profileName">Full Name</label>
+          <input type="text" id="profileName" required>
+        </div>
+
+        <div class="form-group">
+          <label for="profilePhone">Phone Number</label>
+          <input type="tel" id="profilePhone" required>
+        </div>
+
+        <div class="form-group">
+          <label for="profileAddress">Address</label>
+          <input type="text" id="profileAddress" required>
+        </div>
+
+        <div class="form-group">
+          <label for="profileBio">Bio</label>
+          <textarea id="profileBio" placeholder="Tell customers about yourself"></textarea>
+        </div>
+
+        <div class="modal-actions">
+          <button type="button" class="btn-secondary" onclick="closeProfileModal()">Cancel</button>
+          <button type="submit" class="btn-primary">Save Changes</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script type="module" src="dashboard.js"></script>
+</body>
+
+</html>
