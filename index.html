@@ -1,0 +1,763 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>QuickServe | Trusted Local Services</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="style.css">
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+</head>
+
+<body>
+
+  <!-- NAVBAR -->
+  <header class="navbar">
+    <div class="container nav-wrapper">
+
+      <a href="#" class="logo">
+        <span class="logo-icon">Q</span>
+        Quick<span>Serve</span>
+      </a>
+
+      <nav class="nav-links" id="navLinks">
+        <a href="#home" class="active">Home</a>
+        <a href="#services">Services</a>
+        <a href="#providers">Providers</a>
+        <a href="#how-it-works">How It Works</a>
+        <a href="javascript:void(0)" onclick="showLogin()">Login</a>
+        <a href="javascript:void(0)" onclick="showRegister()">Register</a>
+      </nav>
+
+      <div class="nav-buttons">
+        <button class="primary-btn" onclick="scrollToServices()">
+          Get Started
+        </button>
+      </div>
+
+      <button class="menu-btn" id="menuBtn">☰</button>
+
+    </div>
+  </header>
+
+
+  <!-- HERO -->
+  <section class="hero" id="home">
+
+    <div class="container hero-content">
+
+      <div class="hero-text">
+
+        <span class="hero-badge">
+          ✨ Trusted Local Professionals
+        </span>
+
+        <h1>
+          Trusted Services,<br>
+          <span>Booked in Minutes.</span>
+        </h1>
+
+        <p>
+          Find skilled professionals for your home and personal needs.
+          Compare, book and manage your services with ease.
+        </p>
+
+        <div class="search-box">
+
+          <div class="search-input">
+            <span>🔍</span>
+            <input
+              type="text"
+              id="searchInput"
+              placeholder="Search services or providers..."
+            >
+          </div>
+
+          <div class="location-input">
+            <span>📍</span>
+            <input
+              type="text"
+              placeholder="Your location"
+            >
+          </div>
+
+          <button onclick="searchProviders()" class="search-btn">
+            Search
+          </button>
+
+        </div>
+
+        <div class="hero-stats">
+
+          <div>
+            <strong>500+</strong>
+            <small>Professionals</small>
+          </div>
+
+          <div>
+            <strong>2K+</strong>
+            <small>Bookings</small>
+          </div>
+
+          <div>
+            <strong>4.9★</strong>
+            <small>Average Rating</small>
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <div class="hero-image">
+
+        <div class="image-card">
+          <img
+            src="./images/hero page.avif"
+            alt="Professional home service"
+          >
+
+          <div class="floating-card booking-card">
+            <div class="check-icon">✓</div>
+            <div>
+              <strong>Booking Confirmed</strong>
+              <small>Professional assigned</small>
+            </div>
+          </div>
+
+          <div class="floating-card rating-card">
+            <strong>4.9</strong>
+            <span>★★★★★</span>
+            <small>Top Rated</small>
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- SERVICES -->
+  <section class="services-section" id="services">
+
+    <div class="container">
+
+      <div class="section-heading">
+
+        <div>
+          <span class="section-label">OUR SERVICES</span>
+          <h2>What do you need help with?</h2>
+        </div>
+
+        <p>
+          Choose from our most popular services and connect
+          with trusted professionals near you.
+        </p>
+
+      </div>
+
+
+      <div class="service-grid">
+
+        <div class="service-card" onclick="filterService('Plumbing')">
+          <div class="service-icon plumbing">🔧</div>
+          <h3>Plumbing</h3>
+          <p>Expert plumbing solutions</p>
+          <span>Explore →</span>
+        </div>
+
+        <div class="service-card" onclick="filterService('Electrical')">
+          <div class="service-icon electrical">⚡</div>
+          <h3>Electrical</h3>
+          <p>Safe electrical services</p>
+          <span>Explore →</span>
+        </div>
+
+        <div class="service-card" onclick="filterService('Cleaning')">
+          <div class="service-icon cleaning">🧹</div>
+          <h3>Cleaning</h3>
+          <p>Professional home cleaning</p>
+          <span>Explore →</span>
+        </div>
+
+        <div class="service-card" onclick="filterService('AC Repair')">
+          <div class="service-icon ac">❄️</div>
+          <h3>AC Repair</h3>
+          <p>Fast cooling solutions</p>
+          <span>Explore →</span>
+        </div>
+
+        <div class="service-card" onclick="filterService('Beauty')">
+          <div class="service-icon beauty">💇</div>
+          <h3>Beauty</h3>
+          <p>Beauty at your doorstep</p>
+          <span>Explore →</span>
+        </div>
+
+        <div class="service-card" onclick="filterService('Painting')">
+          <div class="service-icon painting">🎨</div>
+          <h3>Painting</h3>
+          <p>Transform your space</p>
+          <span>Explore →</span>
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!--  PROVIDERS  -->
+  <section class="providers-section" id="providers">
+
+    <div class="container">
+
+      <div class="section-heading provider-heading">
+
+        <div>
+          <span class="section-label">TOP PROFESSIONALS</span>
+          <h2>Meet our trusted providers</h2>
+        </div>
+
+        <button class="outline-btn" onclick="showAllProviders()">
+          View All Providers →
+        </button>
+
+      </div>
+
+
+      <div class="provider-grid" id="providerGrid">
+
+        <!-- Provider 1 -->
+        <div class="provider-card" data-service="Plumbing">
+
+          <div class="provider-image">
+            <img
+              src="./images/plumber.jpeg"
+              alt="Ahmed Khan"
+            >
+            <span class="available">Available</span>
+          </div>
+
+          <div class="provider-info">
+
+            <div class="provider-top">
+              <div>
+                <h3>Ahmed Khan</h3>
+                <p>Professional Plumber</p>
+              </div>
+
+              <span class="verified">✓</span>
+            </div>
+
+            <div class="provider-rating">
+              ⭐ <strong>4.9</strong>
+              <span>(128 reviews)</span>
+            </div>
+
+            <div class="provider-meta">
+              <span>📍 Karachi</span>
+              <span>💼 7 years</span>
+            </div>
+
+            <div class="provider-bottom">
+              <div>
+                <small>Starting from</small>
+                <strong>Rs. 1,500</strong>
+              </div>
+
+              <button onclick="bookProvider('Ahmed Khan')">
+                Book Now
+              </button>
+            </div>
+
+          </div>
+        </div>
+
+
+        <!-- Provider 2 -->
+        <div class="provider-card" data-service="Electrical">
+
+          <div class="provider-image">
+            <img
+              src="./images/electrician.jpeg"
+              alt="Bilal Ahmed"
+            >
+            <span class="available">Available</span>
+          </div>
+
+          <div class="provider-info">
+
+            <div class="provider-top">
+              <div>
+                <h3>Bilal Ahmed</h3>
+                <p>Electrician Expert</p>
+              </div>
+
+              <span class="verified">✓</span>
+            </div>
+
+            <div class="provider-rating">
+              ⭐ <strong>4.8</strong>
+              <span>(96 reviews)</span>
+            </div>
+
+            <div class="provider-meta">
+              <span>📍 Karachi</span>
+              <span>💼 5 years</span>
+            </div>
+
+            <div class="provider-bottom">
+              <div>
+                <small>Starting from</small>
+                <strong>Rs. 1,200</strong>
+              </div>
+
+              <button onclick="bookProvider('Bilal Ahmed')">
+                Book Now
+              </button>
+            </div>
+
+          </div>
+        </div>
+
+
+        <!-- Provider 3 -->
+        <div class="provider-card" data-service="Cleaning">
+
+          <div class="provider-image">
+            <img
+              src="./images/cleaning.jpeg"
+              alt="Sara Malik"
+            >
+            <span class="available">Available</span>
+          </div>
+
+          <div class="provider-info">
+
+            <div class="provider-top">
+              <div>
+                <h3>Sara Malik</h3>
+                <p>Cleaning Specialist</p>
+              </div>
+
+              <span class="verified">✓</span>
+            </div>
+
+            <div class="provider-rating">
+              ⭐ <strong>5.0</strong>
+              <span>(84 reviews)</span>
+            </div>
+
+            <div class="provider-meta">
+              <span>📍 Karachi</span>
+              <span>💼 6 years</span>
+            </div>
+
+            <div class="provider-bottom">
+              <div>
+                <small>Starting from</small>
+                <strong>Rs. 2,000</strong>
+              </div>
+
+              <button onclick="bookProvider('Sara Malik')">
+                Book Now
+              </button>
+            </div>
+
+          </div>
+        </div>
+
+
+        <!-- Provider 4 -->
+        <div class="provider-card" data-service="AC Repair">
+
+          <div class="provider-image">
+            <img
+              src="./images/AC Repair.jpeg"
+              alt="Usman Ali"
+            >
+            <span class="available">Available</span>
+          </div>
+
+          <div class="provider-info">
+
+            <div class="provider-top">
+              <div>
+                <h3>Usman Ali</h3>
+                <p>AC Repair Expert</p>
+              </div>
+
+              <span class="verified">✓</span>
+            </div>
+
+            <div class="provider-rating">
+              ⭐ <strong>4.9</strong>
+              <span>(112 reviews)</span>
+            </div>
+
+            <div class="provider-meta">
+              <span>📍 Karachi</span>
+              <span>💼 8 years</span>
+            </div>
+
+            <div class="provider-bottom">
+              <div>
+                <small>Starting from</small>
+                <strong>Rs. 1,800</strong>
+              </div>
+
+              <button onclick="bookProvider('Usman Ali')">
+                Book Now
+              </button>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- HOW IT WORKS -->
+  <section class="how-section" id="how-it-works">
+
+    <div class="container">
+
+      <div class="center-heading">
+        <span class="section-label">HOW IT WORKS</span>
+        <h2>Book a service in 4 simple steps</h2>
+        <p>
+          QuickServe makes finding and booking local professionals simple.
+        </p>
+      </div>
+
+
+      <div class="steps">
+
+        <div class="step">
+          <div class="step-number">01</div>
+          <div class="step-icon">🔍</div>
+          <h3>Find a Service</h3>
+          <p>Search and explore trusted professionals near you.</p>
+        </div>
+
+        <div class="step">
+          <div class="step-number">02</div>
+          <div class="step-icon">📅</div>
+          <h3>Book a Service</h3>
+          <p>Select your preferred date, time and location.</p>
+        </div>
+
+        <div class="step">
+          <div class="step-number">03</div>
+          <div class="step-icon">🤝</div>
+          <h3>Provider Accepts</h3>
+          <p>Your selected professional reviews your request.</p>
+        </div>
+
+        <div class="step">
+          <div class="step-number">04</div>
+          <div class="step-icon">✅</div>
+          <h3>Service Complete</h3>
+          <p>Get it done and rate your experience.</p>
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- BOOKING MODAL -->
+  <div class="modal" id="bookingModal">
+
+    <div class="modal-content">
+
+      <span class="close">&times;</span>
+
+      <h2 id="selectedProvider"></h2>
+
+      <form id="bookingForm">
+
+        <label>Full Name</label>
+        <input
+          type="text"
+          placeholder="Your full name"
+          required
+        >
+
+        <label>Email</label>
+        <input
+          type="email"
+          placeholder="Your email"
+          required
+        >
+
+        <label>Phone</label>
+        <input
+          type="tel"
+          placeholder="Your phone number"
+          required
+        >
+
+        <label>Preferred Date</label>
+        <input
+          type="date"
+          required
+        >
+
+        <label>Preferred Time</label>
+        <input
+          type="time"
+          required
+        >
+
+        <label>Address</label>
+        <textarea
+          placeholder="Your service address"
+          rows="3"
+          required
+        ></textarea>
+
+        <label>Additional Notes</label>
+        <textarea
+          placeholder="Any special requirements or notes"
+          rows="2"
+        ></textarea>
+
+        <button type="submit" class="submit-btn">
+          Confirm Booking
+        </button>
+
+      </form>
+
+    </div>
+
+  </div>
+
+
+  <!-- Firebase -->
+  <!-- <script type="module" src="firebase.js"></script> -->
+
+  <!-- Your JavaScript -->
+  <!-- <script src="script.js"></script> -->
+
+  <!-- Welcome Alert -->
+  <!-- <script>
+    window.addEventListener('load', () => {
+      Swal.fire({
+        icon: 'success',
+        title: 'Welcome to QuickServe!',
+        text: 'Find trusted local services in minutes.',
+        confirmButtonColor: '#5267e8',
+        timer: 3000,
+        timerProgressBar: true
+      });
+    });
+  </script> -->
+
+</body>
+</html>
+
+        <div class="step">
+          <div class="step-number">04</div>
+          <div class="step-icon">⭐</div>
+          <h3>Get It Done</h3>
+          <p>Complete your service and leave a review.</p>
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- CTA -->
+  <section class="cta-section">
+
+    <div class="container">
+
+      <div class="cta-box">
+
+        <div>
+          <span>READY TO GET STARTED?</span>
+          <h2>Need a service? We've got you covered.</h2>
+          <p>
+            Connect with trusted professionals and get your job done right.
+          </p>
+        </div>
+
+        <button onclick="scrollToServices()">
+          Find a Professional →
+        </button>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- FOOTER -->
+  <footer>
+
+    <div class="container footer-grid">
+
+      <div class="footer-about">
+
+        <a href="#" class="logo footer-logo">
+          <span class="logo-icon">Q</span>
+          Quick<span>Serve</span>
+        </a>
+
+        <p>
+          Making local services simple, reliable and accessible
+          for everyone.
+        </p>
+
+        <div class="socials">
+          <a href="https://www.facebook.com/quickserve" target="_blank">f</a>
+          <a href="https://www.linkedin.com/company/quickserve" target="_blank">in</a>
+          <a href="https://twitter.com/quickserve" target="_blank">𝕏</a>
+          <a href="https://www.instagram.com/quickserve" target="_blank">◎</a>
+        </div>
+
+      </div>
+
+
+      <div>
+        <h4>Quick Links</h4>
+        <a href="#home">Home</a>
+        <a href="#services">Services</a>
+        <a href="#providers">Providers</a>
+        <a href="#how-it-works">How It Works</a>
+      </div>
+
+
+      <div>
+        <h4>Services</h4>
+        <a href="#">Plumbing</a>
+        <a href="#">Electrical</a>
+        <a href="#">Cleaning</a>
+        <a href="#">AC Repair</a>
+      </div>
+
+
+      <div>
+        <h4>Contact</h4>
+        <a href="#">📍 Karachi, Pakistan</a>
+        <a href="#">📧 hello@quickserve.com</a>
+        <a href="#">📞 +92 300 1234567</a>
+      </div>
+
+    </div>
+
+
+    <div class="copyright">
+      <p>© 2026 QuickServe. All rights reserved.</p>
+      <p>Built for Modern Web & App Development Hackathon 🚀 by Faryal Razzaq</p>
+    </div>
+
+  </footer>
+
+
+  <!-- BOOKING MODAL -->
+  <div class="modal" id="bookingModal">
+
+    <div class="modal-content">
+
+      <button class="close-modal" onclick="closeModal()">×</button>
+
+      <span class="section-label">QUICKSERVE</span>
+
+      <h2>Book Your Service</h2>
+      <p id="selectedProvider"></p>
+
+      <form id="bookingForm">
+
+        <label>Service</label>
+        <select id="service" required>
+          <option value="">Select service</option>
+          <option>Plumbing</option>
+          <option>Electrical</option>
+          <option>Cleaning</option>
+          <option>AC Repair</option>
+          <option>Beauty</option>
+          <option>Painting</option>
+        </select>
+
+        <div class="form-row">
+
+          <div>
+            <label>Date</label>
+            <input type="date" required>
+          </div>
+
+          <div>
+            <label>Time</label>
+            <input type="time" required>
+          </div>
+
+        </div>
+
+        <label>Location</label>
+        <input type="text" placeholder="Enter your location" required>
+
+        <label>Description</label>
+        <textarea
+          placeholder="Describe the service you need..."
+          required
+        ></textarea>
+
+        <button type="submit" class="submit-btn">
+          Confirm Booking
+        </button>
+
+      </form>
+
+    </div>
+
+  </div>
+
+
+     <!-- Firebase -->
+    <script type="module" src="firebase.js"></script>
+
+    <!-- Your JavaScript -->
+    <script src="script.js"></script>
+
+
+  <!-- Your JavaScript -->
+  <script src="script.js"></script>
+
+  <!-- Welcome Alert -->
+  <script>
+    window.addEventListener('load', () => {
+      Swal.fire({
+        icon: 'success',
+        title: 'Welcome to QuickServe!',
+        text: 'Find trusted local services in minutes.',
+        confirmButtonColor: '#5267e8',
+        timer: 3000,
+        timerProgressBar: true
+      });
+    });
+  </script>
+
+</body>
+</html>
+
