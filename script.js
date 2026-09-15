@@ -3,16 +3,41 @@
 
 const menuBtn = document.getElementById("menuBtn");
 const navLinks = document.getElementById("navLinks");
+const themeToggle = document.getElementById("themeToggle");
 
-menuBtn.addEventListener("click", () => {
-  navLinks.classList.toggle("show");
+if (menuBtn && navLinks) {
+  menuBtn.addEventListener("click", () => {
+    navLinks.classList.toggle("show");
 
-  if (navLinks.classList.contains("show")) {
-    menuBtn.innerHTML = "✕";
-  } else {
-    menuBtn.innerHTML = "☰";
+    if (navLinks.classList.contains("show")) {
+      menuBtn.innerHTML = "✕";
+    } else {
+      menuBtn.innerHTML = "☰";
+    }
+  });
+}
+
+function applyTheme(theme) {
+  const isDark = theme === "dark";
+  document.body.classList.toggle("dark-mode", isDark);
+
+  if (themeToggle) {
+    themeToggle.innerHTML = isDark ? "☀️" : "🌙";
+    themeToggle.setAttribute("aria-label", isDark ? "Switch to light mode" : "Switch to dark mode");
   }
-});
+}
+
+const savedTheme = localStorage.getItem("quickserve-theme");
+const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+applyTheme(savedTheme || (prefersDark ? "dark" : "light"));
+
+if (themeToggle) {
+  themeToggle.addEventListener("click", () => {
+    const nextTheme = document.body.classList.contains("dark-mode") ? "light" : "dark";
+    localStorage.setItem("quickserve-theme", nextTheme);
+    applyTheme(nextTheme);
+  });
+}
 
 
 // SCROLL
